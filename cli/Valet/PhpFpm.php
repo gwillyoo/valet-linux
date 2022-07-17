@@ -379,23 +379,45 @@ class PhpFpm
 
         return $version;
     }
+    
+    /**
+     * Get the possible PHP FPM service names.
+     *
+     * @return array
+     */
+    public function getFpmServiceNames()
+    {
+        return [
+            "php-fpm",
+            "php-fpm{$this->version}",
+            "php{$this->version}-fpm",
+        ];
+    }
 
     /**
      * Determine php service name
      *
      * @return string
      */
-    public function fpmServiceName($version = null)
+    public function fpmServiceName()
     {
-        if (!$version) {
-            $version = $this->getPhpVersion();
+        $services = array_map(function ($serviceName) {
+            return [
+                'name' => $serviceName,
+                'status' => $this->sm->status($serviceName),
+            ];
+        }, $this->getFpmServiceNames());
+        $services = array_filter($services, function ($service) {
+            return false === strpos($service['status'], 'not-found') && false === strpos($service['status'], 'not be found');
+        });
+        $service = reset($services);
+        if (is_array($service) && ! empty($service['name'])) {
+            return $service['name'];
         }
 
-        return "php{$version}-fpm";
-
+        return new DomainException('Unable to determine PHP service name.');
     }
-
-
+    
     /**
      * Get FPM sock file name for a given PHP version.
      *
@@ -459,6 +481,32 @@ class PhpFpm
         // Create log directory and file
         $this->files->ensureDirExists(VALET_HOME_PATH . '/Log', user());
         $this->files->touch(VALET_HOME_PATH . '/Log/php-fpm.log', user());
+    }
+
+    /**
+     * Get a list including the global PHP version and all PHP versions currently serving "isolated sites" (sites with
+     * custom Nginx configs pointing them to a specific PHP version).
+     *
+     * @return array
+     */
+    public function utilizedPhpVersions()
+    {
+        $fpmSockFiles = $this->pm->supportedPhpVersions()->map(function ($version) {
+            return self::fpmSockName($this->normalizePhpVersion($version));
+        })->unique();
+
+        return $this->nginx->configuredSites()->map(function ($file) use ($fpmSockFiles) {
+            $content = $this->files->get(VALET_HOME_PATH . '/Nginx/' . $file);
+
+            // Get the normalized PHP version for this config file, if it's defined
+            foreach ($fpmSockFiles as $sock) {
+                if (strpos($content, $sock) !== false) {
+                    // Extract the PHP version number from a custom .sock path and normalize it to, e.g., "php@7.4"
+                    return $this->normalizePhpVersion(str_replace(['valet', '.sock'], '', $sock));
+                }
+            }
+        })->filter()->unique()->values()->toArray();
+        
     }
 
     /**

@@ -249,4 +249,22 @@ class Homebrew implements ServiceManager
 
         $this->enable('valet-dns');
     }
+
+    public function getRunningServices()
+    {
+        // TODO: Implement getRunningServices() method.
+    }
+
+    public function getAllRunningServices()
+    {
+        $command = 'brew services list | grep started | awk \'{ print $1; }\' ';
+        $onError = function ($exitCode, $errorOutput) {
+            output($errorOutput);
+
+            throw new DomainException('Brew was unable to check which services are running.');
+        };
+
+        return collect(array_filter(explode(PHP_EOL,  $this->cli->run($command, $onError)
+        )));
+    }
 }

@@ -8,6 +8,11 @@ use Valet\Contracts\PackageManager;
 
 class Dnf implements PackageManager
 {
+
+    const SUPPORTED_PHP_VERSIONS = [
+        'php',
+    ];
+
     public $cli;
 
     /**
@@ -100,5 +105,10 @@ class Dnf implements PackageManager
         } catch (DomainException $e) {
             return false;
         }
+    }
+
+    public function supportedPhpVersions()
+    {
+        return collect(static::SUPPORTED_PHP_VERSIONS);
     }
 }

@@ -10,6 +10,21 @@ class Homebrew implements PackageManager
 {
     public $cli;
 
+    const SUPPORTED_PHP_VERSIONS = [
+        'php',
+        'php@8.1',
+        'php@8.0',
+        'php@7.4',
+        'php@7.3',
+        'php@7.2',
+        'php@7.1',
+        'php@7.0',
+        'php73',
+        'php72',
+        'php71',
+        'php70',
+    ];
+
     /**
      * Create a new Homebrew instance.
      *
@@ -112,5 +127,10 @@ class Homebrew implements PackageManager
         } catch (DomainException $e) {
             return false;
         }
+    }
+
+    public function supportedPhpVersions()
+    {
+        return collect(static::SUPPORTED_PHP_VERSIONS);
     }
 }

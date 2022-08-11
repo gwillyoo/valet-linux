@@ -10,6 +10,11 @@ class Yum implements PackageManager
 {
     public $cli;
 
+    const SUPPORTED_PHP_VERSIONS = [
+        'php',
+    ];
+
+
     /**
      * Create a new Yum instance.
      *
@@ -100,5 +105,10 @@ class Yum implements PackageManager
         } catch (DomainException $e) {
             return false;
         }
+    }
+
+    public function supportedPhpVersions()
+    {
+        return collect(static::SUPPORTED_PHP_VERSIONS);
     }
 }

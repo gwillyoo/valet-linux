@@ -193,7 +193,13 @@ class DnsMasq
 
         $this->_lockResolvConf(false);
         $this->files->restore($this->rclocal);
-        $this->files->restore($this->resolvconf);
+        //$this->files->restore($this->resolvconf);
+
+        $this->cli->passthru('rm -f /etc/resolv.conf');
+        $this->sm->stop('systemd-resolved');
+        $this->sm->start('systemd-resolved');
+        $this->files->symlink('/run/systemd/resolve/resolv.conf', $this->resolvconf);
+
         $this->files->restore($this->dnsmasqconf);
         $this->files->commentLine('IGNORE_RESOLVCONF', '/etc/default/dnsmasq');
 

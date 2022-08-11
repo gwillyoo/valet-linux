@@ -194,6 +194,11 @@ class Configuration
      */
     public function read()
     {
+        if (!$this->files->exists($this->path())){
+            $this->files->ensureDirExists(VALET_HOME_PATH );
+
+            $this->writeBaseConfiguration();
+        }
         return json_decode($this->files->get($this->path()), true);
     }
 

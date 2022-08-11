@@ -4,6 +4,7 @@ namespace Valet\Contracts;
 
 interface PackageManager
 {
+
     /**
      * Determine if the given package is installed.
      *
@@ -46,4 +47,12 @@ interface PackageManager
      * @return bool
      */
     public function isAvailable();
+
+    /**
+     * Get a list of supported PHP versions.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function supportedPhpVersions();
+
 }

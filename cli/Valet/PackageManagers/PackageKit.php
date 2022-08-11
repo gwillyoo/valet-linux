@@ -10,6 +10,11 @@ class PackageKit implements PackageManager
 {
     public $cli;
 
+    const SUPPORTED_PHP_VERSIONS = [
+        'php',
+    ];
+
+
     /**
      * Create a new PackageKit instance.
      *
@@ -116,5 +121,10 @@ class PackageKit implements PackageManager
         } catch (DomainException $e) {
             return false;
         }
+    }
+
+    public function supportedPhpVersions()
+    {
+        return collect(static::SUPPORTED_PHP_VERSIONS);
     }
 }

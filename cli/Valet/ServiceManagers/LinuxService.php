@@ -314,4 +314,14 @@ class LinuxService implements ServiceManager
 
         $this->enable('valet-dns');
     }
+
+    public function getRunningServices()
+    {
+        // TODO: Implement getRunningServices() method.
+    }
+
+    public function getAllRunningServices()
+    {
+        // TODO: Implement getAllRunningServices() method.
+    }
 }

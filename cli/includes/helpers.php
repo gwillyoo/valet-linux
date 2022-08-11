@@ -12,6 +12,9 @@ define('VALET_HOME_PATH', $_SERVER['HOME'] . '/.valet');
 define('VALET_SERVER_PATH', realpath(__DIR__ . '/../../server.php'));
 define('VALET_STATIC_PREFIX', '41c270e4-5535-4daa-b23e-c269744c2f45');
 
+define('ISOLATED_PHP_VERSION', 'ISOLATED_PHP_VERSION');
+
+
 /**
  * Output the given text to the console.
  *
@@ -77,6 +80,48 @@ if (!function_exists('resolve')) {
         return Container::getInstance()->make($class);
     }
 }
+
+
+if (! function_exists('ends_with')) {
+    /**
+     * Determine if a given string ends with a given substring.
+     *
+     * @param  string  $haystack
+     * @param  string|array  $needles
+     * @return bool
+     */
+    function ends_with($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if (substr($haystack, -strlen($needle)) === (string) $needle) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+if (! function_exists('starts_with')) {
+    /**
+     * Determine if a given string starts with a given substring.
+     *
+     * @param  string  $haystack
+     * @param  string|string[]  $needles
+     * @return bool
+     */
+    function starts_with($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ((string) $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
 
 /**
  * Swap the given class implementation in the container.

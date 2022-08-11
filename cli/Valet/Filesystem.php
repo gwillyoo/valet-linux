@@ -162,6 +162,7 @@ class Filesystem
      */
     public function get($path)
     {
+        if (!file_exists($path)) return null;
         return file_get_contents($path);
     }
 

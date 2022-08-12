@@ -1,5 +1,5 @@
 {
-    "name": "cpriego/valet-linux",
+    "name": "adesin-fr/valet-linux-ng",
     "description": "A more enjoyable local development experience for Linux.",
     "keywords": ["laravel", "zonda", "wwdhhd", "ubuntu", "fedora", "arch", "linux", "valet"],
     "license": "MIT",
@@ -23,6 +23,10 @@
         {
             "name": "Joaquín Marcher",
             "email": "joaquin@marcher.com.uy"
+        },
+        {
+            "name": "Ludovic Lemarinel",
+            "email": "ludovic@adesin.fr"
         }
     ],
     "autoload": {

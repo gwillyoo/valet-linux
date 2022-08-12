@@ -1,4 +1,4 @@
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/cpriego/valet-linux-docs@master/assets/valet-logo.png"></p>
+<p align="center"><img src="valet-linux-ng.png"></p>
 
 <p align="center">
 <a href="https://packagist.org/packages/adesin-fr/valet-linux-ng"><img src="https://poser.pugx.org/cpriego/valet-linux/downloads.svg" alt="Total Downloads"></a>

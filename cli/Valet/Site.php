@@ -608,11 +608,33 @@ class Site
             $crtPath
         ));
 
-        $this->cli->run(sprintf(
-            'certutil -d $HOME/.mozilla/firefox/*.default -A -t TC -n "%s" -i "%s"',
-            $url,
-            $crtPath
-        ));
+        foreach ($this->getFirefoxProfilePath() as $path) {
+            $this->cli->run(sprintf(
+                'certutil -d ' . $path . ' -A -t TC -n "%s" -i "%s"',
+                $url,
+                $crtPath
+            ));
+        }
+    }
+
+    /**
+     * get profiles paths of firefox
+     *
+     * @return array
+     */
+    private function getFirefoxProfilePath() {
+        $firefoxPath = getenv('HOME').'/.mozilla/firefox/';
+        $profiles = 'profiles.ini';
+        $path = [];
+        if(file_exists($firefoxPath . $profiles)){
+            $ini = parse_ini_file($firefoxPath . $profiles, true);
+            foreach($ini as $key => $value){
+                if(str_starts_with($key, 'Profile')){
+                    $path[] = ((bool)$value['IsRelative']) ? $firefoxPath . $value['Path'] : $value['Path'];
+                }
+            }
+        }
+        return $path;
     }
 
     /**
@@ -670,7 +692,12 @@ class Site
             $this->files->unlink($this->certificatesPath() . '/' . $url . '.crt');
 
             $this->cli->run(sprintf('certutil -d sql:$HOME/.pki/nssdb -D -n "%s"', $url));
-            $this->cli->run(sprintf('certutil -d $HOME/.mozilla/firefox/*.default -D -n "%s"', $url));
+            foreach ($this->getFirefoxProfilePath() as $path) {
+                $this->cli->run(sprintf(
+                    'certutil -d ' . $path . ' -D -n "%s"',
+                    $url
+                ));
+            }
         }
     }
 

@@ -626,10 +626,10 @@ class Site
         $firefoxPath = getenv('HOME').'/.mozilla/firefox/';
         $profiles = 'profiles.ini';
         $path = [];
-        if(file_exists($firefoxPath . $profiles)){
+        if(file_exists($firefoxPath . $profiles)) {
             $ini = parse_ini_file($firefoxPath . $profiles, true);
             foreach($ini as $key => $value){
-                if(str_starts_with($key, 'Profile')){
+                if (0 === strpos($key, 'Profile')) {
                     $path[] = ((bool)$value['IsRelative']) ? $firefoxPath . $value['Path'] : $value['Path'];
                 }
             }

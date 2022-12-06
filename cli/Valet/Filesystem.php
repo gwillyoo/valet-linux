@@ -315,7 +315,7 @@ class Filesystem
      */
     public function symlinkAsUser($target, $link)
     {
-        if ($this->exists($link)) {
+        if (is_link($link)) {
             $this->unlink($link);
         }
 

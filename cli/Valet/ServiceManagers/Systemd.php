@@ -99,7 +99,7 @@ class Systemd implements ServiceManager
      *
      * @param mixed $service Service name
      *
-     * @return void
+     * @return string
      */
     public function status($service)
     {
@@ -243,5 +243,17 @@ class Systemd implements ServiceManager
         );
 
         $this->enable('valet-dns');
+    }
+
+    public function getRunningServices()
+    {
+        return $this->getAllRunningServices();
+    }
+
+    public function getAllRunningServices()
+    {
+        $list = $this->cli->run('systemctl list-units --type=service --state=active | grep \.service | awk \'{ print $1; }\'');
+        return collect(explode(PHP_EOL, $list));
+
     }
 }

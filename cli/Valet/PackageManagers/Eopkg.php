@@ -10,6 +10,11 @@ class Eopkg implements PackageManager
 {
     public $cli;
 
+    const SUPPORTED_PHP_VERSIONS = [
+        'php',
+    ];
+
+
     /**
      * Create a new Eopkg instance.
      *
@@ -109,5 +114,10 @@ class Eopkg implements PackageManager
         } catch (DomainException $e) {
             return false;
         }
+    }
+
+    public function supportedPhpVersions()
+    {
+        return collect(static::SUPPORTED_PHP_VERSIONS);
     }
 }

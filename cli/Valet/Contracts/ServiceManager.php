@@ -42,4 +42,18 @@ interface ServiceManager
      * @return bool
      */
     public function isAvailable();
+
+    /**
+     * Get the currently running brew services.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getRunningServices();
+
+    /**
+     * Get all the currently running brew services.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getAllRunningServices();
 }

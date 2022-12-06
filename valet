@@ -3,7 +3,7 @@
 set -e
 
 SOURCE="${BASH_SOURCE[0]}"
-SUDOCMDS="uninstall install start restart stop unsecure secure use"
+SUDOCMDS="uninstall install start restart stop unsecure secure use isolate unisolate"
 HOMEPATH=$HOME
 
 function check_dependencies() {

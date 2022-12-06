@@ -16,7 +16,7 @@ use Silly\Application;
 /**
  * Create the application.
  */
-Container::setInstance(new Container);
+Container::setInstance(new Container());
 
 $version = 'v2.2.37';
 
@@ -65,7 +65,8 @@ if (is_dir(VALET_HOME_PATH)) {
         }
 
         DnsMasq::updateDomain(
-            $oldDomain = Configuration::read()['domain'], $domain = trim($domain, '.')
+            $oldDomain = Configuration::read()['domain'],
+            $domain = trim($domain, '.')
         );
 
         Configuration::updateKey('domain', $domain);
@@ -165,7 +166,7 @@ if (is_dir(VALET_HOME_PATH)) {
     $app->command('links', function () {
         $links = Site::links();
 
-        table(['Site', 'SSL', 'URL', 'Path'], $links->all());
+        table(['Site', 'SSL', 'URL', 'Path', 'PHP'], $links->all());
     })->descriptions('Display all of the registered Valet links');
 
     /**
@@ -390,7 +391,6 @@ if (is_dir(VALET_HOME_PATH)) {
 
         table(['Path', 'PHP Version'], $sites->all());
     })->descriptions('List all sites using isolated versions of PHP.');
-
 }
 
 

@@ -12,7 +12,7 @@ class PhpFpmTest extends TestCase
     {
         $_SERVER['SUDO_USER'] = user();
 
-        Container::setInstance(new Container);
+        Container::setInstance(new Container());
     }
 
 
@@ -46,7 +46,7 @@ class PhpFpmTest extends TestCase
 
 class StubForUpdatingFpmConfigFiles extends PhpFpm
 {
-    public function fpmConfigPath()
+    public function fpmConfigPath($phpVersion = null)
     {
         return __DIR__ . '/output';
     }

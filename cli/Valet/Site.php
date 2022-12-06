@@ -839,13 +839,14 @@ class Site
             $siteConf = $this->replaceSockFile($siteConf, $phpVersion);
         } else {
             $siteConf = str_replace(
-                ['VALET_HOME_PATH', 'VALET_SERVER_PATH', 'VALET_STATIC_PREFIX', 'VALET_SITE', 'VALET_PHP_FPM_SOCKET', 'VALET_ISOLATED_PHP_VERSION'],
-                [VALET_HOME_PATH, VALET_SERVER_PATH, VALET_STATIC_PREFIX, $valetSite, PhpFpm::fpmSockName($phpVersion), $phpVersion],
-                $this->replaceLoopback($this->files->get(__DIR__ . '/../stubs/site.valet.conf'))
+                ['VALET_HOME_PATH', 'VALET_SERVER_PATH', 'VALET_STATIC_PREFIX', 'VALET_SITE', 'VALET_PHP_FPM_SOCKET', 'VALET_ISOLATED_PHP_VERSION', 'VALET_PORT'],
+                [VALET_HOME_PATH, VALET_SERVER_PATH, VALET_STATIC_PREFIX, $valetSite, PhpFpm::fpmSockName($phpVersion), $phpVersion, $this->config->read()['port']],
+                $this->replaceLoopback($this->files->get(__DIR__ . '/../stubs/isolated.valet.conf'))
             );
         }
 
         $this->files->putAsUser($this->nginxPath($valetSite), $siteConf);
+        echo "put nginx conf at ".$this->nginxPath($valetSite)."\n";
     }
 
 

@@ -73,7 +73,7 @@ class DnsMasq
         $script = $optDir . '/valet-dns';
 
         $this->pm->ensureInstalled('inotify-tools');
-        $this->files->remove($optDir);
+        //$this->files->remove($optDir);
         $this->files->ensureDirExists($optDir);
         $this->files->put($script, $this->files->get(__DIR__ . '/../stubs/valet-dns'));
         $this->cli->run("chmod +x $script");

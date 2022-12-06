@@ -34,17 +34,17 @@ class Filesystem
                 $this->remove(new \FilesystemIterator($file));
 
                 if (true !== @rmdir($file)) {
-                    throw new \Exception(sprintf('Failed to remove directory "%s".', $file), 0, null, $file);
+                    throw new \Exception(sprintf('Failed to remove directory "%s".', $file), 0, null);
                 }
             } else {
                 // https://bugs.php.net/bug.php?id=52176
                 if ('\\' === DIRECTORY_SEPARATOR && is_dir($file)) {
                     if (true !== @rmdir($file)) {
-                        throw new \Exception(sprintf('Failed to remove file "%s".', $file), 0, null, $file);
+                        throw new \Exception(sprintf('Failed to remove file "%s".', $file), 0, null);
                     }
                 } else {
                     if (true !== @unlink($file)) {
-                        throw new \Exception(sprintf('Failed to remove file "%s".', $file), 0, null, $file);
+                        throw new \Exception(sprintf('Failed to remove file "%s".', $file), 0, null);
                     }
                 }
             }

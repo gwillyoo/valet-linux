@@ -74,7 +74,6 @@ class PhpFpm
             $phpVersion = $this->getPhpVersion();
         }
 
-        echo "symlinking $phpVersion as primary\n";
         $this->files->symlinkAsUser(VALET_HOME_PATH . '/' . $this->fpmSockName($phpVersion), VALET_HOME_PATH . '/valet.sock');
     }
 
@@ -288,16 +287,19 @@ class PhpFpm
      *
      * @return void
      */
-    public function installConfiguration()
+    public function installConfiguration($phpVersion = null)
     {
         $contents = $this->files->get(__DIR__ . '/../stubs/fpm.conf');
+        if (!$phpVersion) {
+            $phpVersion = $this->getPhpVersion();
+        }
 
         $this->files->putAsUser(
             $this->fpmConfigPath() . '/valet.conf',
             str_array_replace([
                 'VALET_USER' => user(),
                 'VALET_GROUP' => group(),
-                'VALET_HOME_PATH' => VALET_HOME_PATH,
+                'VALET_FPM_SOCK' => VALET_HOME_PATH . "/".  $this->fpmSockName($phpVersion),
             ], $contents)
         );
 

@@ -12,7 +12,7 @@ class PhpFpmTest extends TestCase
     {
         $_SERVER['SUDO_USER'] = user();
 
-        Container::setInstance(new Container);
+        Container::setInstance(new Container());
     }
 
 

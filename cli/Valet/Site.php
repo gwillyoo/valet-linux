@@ -338,7 +338,15 @@ class Site
 
             $url = ($secured ? 'https' : 'http') . '://' . $site . '.' . $config['domain'] . ($secured ? $httpsPort : $httpPort);
 
-            return [$site, $secured ? ' X' : '', $url, $path];
+            $phpVersion = $this->getPhpVersion($site . '.' . $config['domain']);
+
+            return [
+                'site' => $site,
+                'secured' => $secured ? ' X' : '',
+                'url' => $url,
+                'path' => $path,
+                'phpVersion' => $phpVersion,
+            ];
         });
     }
 

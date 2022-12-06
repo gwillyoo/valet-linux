@@ -39,14 +39,14 @@ class PhpFpmTest extends TestCase
         $this->assertStringContainsString(sprintf("\ngroup = %s", group()), $contents);
         $this->assertStringContainsString(sprintf("\nlisten.owner = %s", user()), $contents);
         $this->assertStringContainsString(sprintf("\nlisten.group = %s", group()), $contents);
-        $this->assertStringContainsString("\nlisten = " . VALET_HOME_PATH . "/valet.sock", $contents);
+        $this->assertStringContainsString("\nlisten = " . VALET_HOME_PATH . "/valet", $contents);
     }
 }
 
 
 class StubForUpdatingFpmConfigFiles extends PhpFpm
 {
-    public function fpmConfigPath()
+    public function fpmConfigPath($phpVersion = null)
     {
         return __DIR__ . '/output';
     }

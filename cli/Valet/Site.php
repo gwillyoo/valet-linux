@@ -846,7 +846,6 @@ class Site
         }
 
         $this->files->putAsUser($this->nginxPath($valetSite), $siteConf);
-        echo "put nginx conf at ".$this->nginxPath($valetSite)."\n";
     }
 
 

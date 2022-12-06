@@ -18,7 +18,7 @@ use Silly\Application;
  */
 Container::setInstance(new Container);
 
-$version = 'v2.2.32';
+$version = 'v2.2.36';
 
 $app = new Application('Valet', $version);
 
@@ -149,10 +149,14 @@ if (is_dir(VALET_HOME_PATH)) {
     /**
      * Register a symbolic link with Valet.
      */
-    $app->command('link [name]', function ($name) {
+    $app->command('link [name] [--secure]', function ($name, $secure) {
         $linkPath = Site::link(getcwd(), $name = $name ?: basename(getcwd()));
 
-        info('A [' . $name . '] symbolic link has been created in [' . $linkPath . '].');
+        info('A ['.$name.'] symbolic link has been created in ['.$linkPath.'].');
+
+        if ($secure) {
+            $this->runCommand('secure '.$name);
+        }
     })->descriptions('Link the current working directory to Valet');
 
     /**

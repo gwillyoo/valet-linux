@@ -85,7 +85,6 @@ class DnsMasq
 
         $this->files->backup($this->resolvconf);
         $this->files->unlink($this->resolvconf);
-        $this->files->symlink($script, $this->resolvconf);
 
         return true;
     }

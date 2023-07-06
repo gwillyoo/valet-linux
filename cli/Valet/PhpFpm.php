@@ -6,6 +6,7 @@ use DomainException;
 use Valet\Contracts\PackageManager;
 use Valet\PackageManagers\Homebrew;
 use Valet\Contracts\ServiceManager;
+use Valet\PackageManagers\Dnf;
 
 class PhpFpm
 {
@@ -403,15 +404,8 @@ class PhpFpm
      */
     public static function fpmSockName($phpVersion = null)
     {
-        if (!$phpVersion) {
-            $phpVersion = self::getPhpVersion();
-        }
 
         $versionInteger = preg_replace('~[^\d]~', '', $phpVersion);
-
-        if (!$versionInteger) {
-
-        }
 
         return "valet{$versionInteger}.sock";
     }
@@ -520,9 +514,14 @@ class PhpFpm
 
     public function getPhpVersion()
     {
+        if ($this->pm instanceof Dnf) {
+            return null;
+        }
+
         if (!$this->version) {
             $this->version = $this->normalizePhpVersion(PHP_VERSION);
         }
+
         return $this->version;
     }
 }

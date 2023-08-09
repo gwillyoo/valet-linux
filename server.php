@@ -201,6 +201,13 @@ if (isset($_SERVER['HTTP_X_ORIGINAL_HOST'])) {
 }
 
 /**
+ * Attempt to load server environment variables.
+ */
+$valetDriver->loadServerEnvironmentVariables(
+    $valetSitePath, $siteName
+);
+
+/**
  * Allow driver to mutate incoming URL.
  */
 $uri = $valetDriver->mutateUri($uri);

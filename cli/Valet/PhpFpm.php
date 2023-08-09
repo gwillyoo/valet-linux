@@ -506,32 +506,6 @@ class PhpFpm
                 }
             }
         })->filter()->unique()->values()->toArray();
-        
-    }
-
-    /**
-     * Get a list including the global PHP version and all PHP versions currently serving "isolated sites" (sites with
-     * custom Nginx configs pointing them to a specific PHP version).
-     *
-     * @return array
-     */
-    public function utilizedPhpVersions()
-    {
-        $fpmSockFiles = $this->pm->supportedPhpVersions()->map(function ($version) {
-            return self::fpmSockName($this->normalizePhpVersion($version));
-        })->unique();
-
-        return $this->nginx->configuredSites()->map(function ($file) use ($fpmSockFiles) {
-            $content = $this->files->get(VALET_HOME_PATH . '/Nginx/' . $file);
-
-            // Get the normalized PHP version for this config file, if it's defined
-            foreach ($fpmSockFiles as $sock) {
-                if (strpos($content, $sock) !== false) {
-                    // Extract the PHP version number from a custom .sock path and normalize it to, e.g., "php@7.4"
-                    return $this->normalizePhpVersion(str_replace(['valet', '.sock'], '', $sock));
-                }
-            }
-        })->filter()->unique()->values()->toArray();
     }
 
     /**

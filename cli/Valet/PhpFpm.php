@@ -379,23 +379,45 @@ class PhpFpm
 
         return $version;
     }
+    
+    /**
+     * Get the possible PHP FPM service names.
+     *
+     * @return array
+     */
+    public function getFpmServiceNames()
+    {
+        return [
+            "php-fpm",
+            "php-fpm{$this->version}",
+            "php{$this->version}-fpm",
+        ];
+    }
 
     /**
      * Determine php service name
      *
      * @return string
      */
-    public function fpmServiceName($version = null)
+    public function fpmServiceName()
     {
-        if (!$version) {
-            $version = $this->getPhpVersion();
+        $services = array_map(function ($serviceName) {
+            return [
+                'name' => $serviceName,
+                'status' => $this->sm->status($serviceName),
+            ];
+        }, $this->getFpmServiceNames());
+        $services = array_filter($services, function ($service) {
+            return false === strpos($service['status'], 'not-found') && false === strpos($service['status'], 'not be found');
+        });
+        $service = reset($services);
+        if (is_array($service) && ! empty($service['name'])) {
+            return $service['name'];
         }
 
-        return "php{$version}-fpm";
-
+        return new DomainException('Unable to determine PHP service name.');
     }
-
-
+    
     /**
      * Get FPM sock file name for a given PHP version.
      *

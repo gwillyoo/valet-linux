@@ -379,7 +379,7 @@ class PhpFpm
 
         return $version;
     }
-    
+
     /**
      * Get the possible PHP FPM service names.
      *
@@ -387,6 +387,9 @@ class PhpFpm
      */
     public function getFpmServiceNames()
     {
+        if(is_null($this->version)) {
+            $this->version = $this->getPhpVersion();
+        }
         return [
             "php-fpm",
             "php-fpm{$this->version}",
@@ -417,7 +420,7 @@ class PhpFpm
 
         return new DomainException('Unable to determine PHP service name.');
     }
-    
+
     /**
      * Get FPM sock file name for a given PHP version.
      *

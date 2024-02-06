@@ -7,6 +7,7 @@ use Valet\Contracts\PackageManager;
 use Valet\PackageManagers\Homebrew;
 use Valet\Contracts\ServiceManager;
 use Valet\PackageManagers\Dnf;
+use Valet\PackageManagers\Pacman;
 
 class PhpFpm
 {
@@ -540,6 +541,10 @@ class PhpFpm
     public function getPhpVersion()
     {
         if ($this->pm instanceof Dnf) {
+            return null;
+        }
+
+        if ($this->pm instanceof Pacman) {
             return null;
         }
 

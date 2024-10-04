@@ -11,6 +11,7 @@ class Apt implements PackageManager
 
     const SUPPORTED_PHP_VERSIONS = [
         'php',
+        'php83',
         'php81',
         'php80',
         'php74',

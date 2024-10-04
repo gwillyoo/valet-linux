@@ -12,6 +12,7 @@ class Homebrew implements PackageManager
 
     const SUPPORTED_PHP_VERSIONS = [
         'php',
+        'php@8.3',
         'php@8.1',
         'php@8.0',
         'php@7.4',

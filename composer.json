@@ -1,6 +1,6 @@
 {
-    "name": "cpriego/valet-linux",
-    "description": "A more enjoyable local development experience for Linux.",
+    "name": "gwillyoo/valet-linux",
+    "description": "A more enjoyable local development experience for Linux. Fork from cpriego/valet-linux",
     "keywords": ["laravel", "zonda", "wwdhhd", "ubuntu", "fedora", "arch", "linux", "valet"],
     "license": "MIT",
     "authors": [
@@ -50,7 +50,7 @@
         "mnapoli/silly": "~1.1",
         "symfony/process": "~2.7|~3.0|~4.0|~5.0|^6.0",
         "nategood/httpful": "~1.0",
-        "tightenco/collect": "~5.3|^6.0|^7.0|^8.0|^9.0",
+        "illuminate/collections": "~5.3|^6.0|^7.0|^8.0|^9.0",
         "ext-posix": "*",
         "ext-json": "*",
         "outrightvision/api-model": "^1.0"

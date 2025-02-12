@@ -46,7 +46,7 @@
     },
     "require": {
         "php": ">=7.0",
-        "illuminate/container": "~5.3|^6.0|^7.0|^8.0|^9.0|^10.0|^11.00",
+        "illuminate/container": "~5.3|^6.0|^7.0|^8.0|^9.0|^10.0|^11.00|^12.00",
         "mnapoli/silly": "~1.1",
         "symfony/process": "~2.7|~3.0|~4.0|~5.0|^6.0|^7.0",
         "nategood/httpful": "~1.0",

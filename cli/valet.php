@@ -145,6 +145,7 @@ if (is_dir(VALET_HOME_PATH)) {
     $app->command('status', function () {
         PhpFpm::status();
         Nginx::status();
+        DnsMasq::status();
     })->descriptions('View Valet service status');
 
     /**
@@ -288,6 +289,7 @@ if (is_dir(VALET_HOME_PATH)) {
     $app->command('start', function () {
         PhpFpm::restart();
         Nginx::restart();
+        DnsMasq::restart();
 
         info('Valet services have been started.');
     })->descriptions('Start the Valet services');
@@ -298,6 +300,7 @@ if (is_dir(VALET_HOME_PATH)) {
     $app->command('restart', function () {
         PhpFpm::restart();
         Nginx::restart();
+        DnsMasq::restart();
 
         info('Valet services have been restarted.');
     })->descriptions('Restart the Valet services');
@@ -308,6 +311,7 @@ if (is_dir(VALET_HOME_PATH)) {
     $app->command('stop', function () {
         PhpFpm::stop();
         Nginx::stop();
+        DnsMasq::stop();
 
         info('Valet services have been stopped.');
     })->descriptions('Stop the Valet services');

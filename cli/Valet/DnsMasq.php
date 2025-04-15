@@ -175,6 +175,46 @@ class DnsMasq
     }
 
     /**
+     * Start the DnsMasq service.
+     *
+     * @return void
+     */
+    public function start()
+    {
+        $this->sm->start('dnsmasq');
+    }
+
+    /**
+     * Restart the DnsMasq service.
+     *
+     * @return void
+     */
+    public function restart()
+    {
+        $this->sm->restart('dnsmasq');
+    }
+
+    /**
+     * Stop the DnsMasq service.
+     *
+     * @return void
+     */
+    public function stop()
+    {
+        $this->sm->stop('dnsmasq');
+    }
+
+    /** 
+     * DnsMasq service status.
+     *
+     * @return void
+     */
+    public function status()
+    {
+        $this->sm->printStatus('dnsmasq');
+    }
+
+    /**
      * Delete the DnsMasq config file.
      *
      * @return void

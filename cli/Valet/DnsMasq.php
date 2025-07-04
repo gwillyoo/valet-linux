@@ -15,6 +15,11 @@ class DnsMasq
     public $configPath;
     public $nmConfigPath;
     public $resolvedConfig;
+    public string $resolvconf;
+    public string $dnsmasqconf;
+    public string $dnsmasqOpts;
+    public string $resolvedConfigPath;
+
 
     /**
      * Create a new DnsMasq instance.
@@ -204,7 +209,7 @@ class DnsMasq
         $this->sm->stop('dnsmasq');
     }
 
-    /** 
+    /**
      * DnsMasq service status.
      *
      * @return void

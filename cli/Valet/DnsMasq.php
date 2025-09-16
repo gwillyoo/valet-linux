@@ -15,6 +15,11 @@ class DnsMasq
     public $configPath;
     public $nmConfigPath;
     public $resolvedConfig;
+    public string $resolvconf;
+    public string $dnsmasqconf;
+    public string $dnsmasqOpts;
+    public string $resolvedConfigPath;
+
 
     /**
      * Create a new DnsMasq instance.
@@ -172,6 +177,46 @@ class DnsMasq
     {
         $this->createCustomConfigFile($newDomain);
         $this->sm->restart('dnsmasq');
+    }
+
+    /**
+     * Start the DnsMasq service.
+     *
+     * @return void
+     */
+    public function start()
+    {
+        $this->sm->start('dnsmasq');
+    }
+
+    /**
+     * Restart the DnsMasq service.
+     *
+     * @return void
+     */
+    public function restart()
+    {
+        $this->sm->restart('dnsmasq');
+    }
+
+    /**
+     * Stop the DnsMasq service.
+     *
+     * @return void
+     */
+    public function stop()
+    {
+        $this->sm->stop('dnsmasq');
+    }
+
+    /**
+     * DnsMasq service status.
+     *
+     * @return void
+     */
+    public function status()
+    {
+        $this->sm->printStatus('dnsmasq');
     }
 
     /**
